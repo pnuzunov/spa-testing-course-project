@@ -60,6 +60,7 @@ describe('Course List', () => {
         browser.wait(browser.ExpectedConditions.elementToBeClickable(delButton), 10000);
         await delButton.click();
 
+        await browser.sleep(1000);
         const itemsUpdated = await page.getCourseElements();
 
         expect(itemsUpdated.length).toEqual(prevLength - 1);

@@ -12,9 +12,9 @@ describe('Course Form', () => {
 
     it('should add movie and redirect to courses page', async () => {
         await page.navigateToCreate();
-        browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`), 10000);
+        await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`), 10000);
 
-        page.populateForm('test title', 'test description');
+        await page.populateForm('test title', 'test description');
         const saveButton = page.getSaveButton();
         await saveButton.isPresent();
         browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
@@ -26,7 +26,7 @@ describe('Course Form', () => {
   
     it('should edit movie and redirect to courses page', async () => {
         await page.navigateToEdit(4);
-        browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`), 10000);
+        await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`), 10000);
 
         await page.clearForm();
         await page.populateForm('edited title', 'edited description');
