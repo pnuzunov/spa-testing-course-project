@@ -1,0 +1,43 @@
+<div>
+
+  <div class="m-3">
+    <h2 class="page-title">
+      {{course?.id ? 'Edit course' : 'Add new course'}}
+    </h2>
+  </div>
+  
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div>
+        <input type="text"
+               id="title"
+               name="title"
+               placeholder="Title"
+               formControlName="title">
+      </div>
+  
+      <div>
+        <textarea cols="21" rows="10"
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  formControlName="description"></textarea>
+      </div>
+  
+      <div *ngIf="errorMessage">
+        <p style="color: red;">{{errorMessage}}</p>
+      </div>
+
+      <div class="m-1">
+        <button class="button-pretty button-success m-1" 
+                type="submit"
+                data-test-selector="save-button">
+          Save
+        </button>
+        <a routerLink="" 
+           class="button-pretty button-neutral"
+           data-test-selector="cancel-button">
+        Cancel</a>
+      </div>
+
+    </form>
+  </div>

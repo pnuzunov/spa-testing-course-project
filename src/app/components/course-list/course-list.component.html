@@ -1,0 +1,13 @@
+<div class="m-3">
+    <h2 class="page-title" data-test-selector="course-list-title">Available Courses</h2>
+</div>
+
+<div class="card-area">
+    <a *ngFor="let course of courses" class="card">
+        <app-course-list-item [course]="course" (deleted)="onItemDeleted($event)"></app-course-list-item>
+    </a>
+</div>
+
+<div>
+    <a routerLink="/new" data-test-selector="add-button">Add new</a>
+</div>

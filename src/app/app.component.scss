@@ -1,0 +1,61 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title-area {
+    background-color: steelblue;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.title {
+    color: white;
+    text-transform: uppercase;
+}
+
+.page-title {
+    text-transform: uppercase;
+    text-align: center;
+    color: steelblue;
+    border-bottom: 3px solid steelblue;
+}
+
+.button-pretty {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    padding: .375em .75em;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+a.button-pretty {
+    font-size: 14px;
+}
+
+.button-neutral {
+    border-color: steelblue;
+    color: steelblue;
+}
+
+.button-success {
+    border-color: darkgreen;
+    color: darkgreen;
+}
+
+.button-dangerous {
+    border-color: red;
+    color: red;
+}
+
+.m-1 {
+    margin: 1em;
+}
+
+.m-3 {
+    margin: 3em;
+}
