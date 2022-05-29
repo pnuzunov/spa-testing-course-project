@@ -10,6 +10,10 @@ export class CourseFormPage {
         return browser.get(`${browser.baseUrl}edit/${id}`);
     }
 
+    getPageTitle(): ElementFinder {
+        return element(by.css('[class=page-title]'));
+    }
+
     getSaveButton(): ElementFinder {
         return element(by.css('[data-test-selector=save-button]'));
     }

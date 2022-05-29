@@ -19,6 +19,7 @@ describe('Course List', () => {
     it('should load courses after page is loaded', async () => {
         await page.navigateTo();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
+        await browser.sleep(500);
         const items = page.getCourseElements();
         await items.isPresent();
         expect(items['length']).not.toBe(0);
@@ -29,7 +30,7 @@ describe('Course List', () => {
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
         const button = page.getAddButton();
         await button.isPresent();
-        browser.wait(browser.ExpectedConditions.elementToBeClickable(button), 10000);
+        await browser.wait(browser.ExpectedConditions.elementToBeClickable(button), 10000);
         await button.click();
 
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`), 10000);
@@ -41,7 +42,7 @@ describe('Course List', () => {
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
         const editButton = page.getEditButton(4);
         await editButton.isPresent();
-        browser.wait(browser.ExpectedConditions.elementToBeClickable(editButton), 10000);
+        await browser.wait(browser.ExpectedConditions.elementToBeClickable(editButton), 10000);
         await editButton.click();
 
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`), 10000);
@@ -51,18 +52,20 @@ describe('Course List', () => {
     it('should delete course and update course list', async () => {
         await page.navigateTo();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
-        const items = await page.getCourseElements();
-        const prevLength = items.length;
-        expect(prevLength).not.toBe(0);
+        await browser.sleep(500);
+
+        let items = await page.getCourseElements();
+        const length = items.length;
+        expect(length).not.toBe(0);
 
         const delButton = page.getDeleteButton(4);
         await delButton.isPresent();
         browser.wait(browser.ExpectedConditions.elementToBeClickable(delButton), 10000);
         await delButton.click();
 
-        await browser.sleep(1000);
-        const itemsUpdated = await page.getCourseElements();
+        await browser.sleep(500);
+        items = await page.getCourseElements();
 
-        expect(itemsUpdated.length).toEqual(prevLength - 1);
+        expect(items.length).toBe(length - 1);
     })
 })
