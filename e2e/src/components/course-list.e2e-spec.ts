@@ -1,5 +1,4 @@
 import { browser } from "protractor";
-import { CourseFormPage } from "./course-form.po";
 import { CourseListPage } from "./course-list.po"
 
 describe('Course List', () => {

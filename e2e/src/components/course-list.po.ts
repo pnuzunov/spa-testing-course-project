@@ -14,11 +14,6 @@ export class CourseListPage {
         return element.all(by.tagName('app-course-list-item'));
     }
 
-    async presenceOfAll(elements: ElementArrayFinder) {
-        const count = await elements.count();
-        return count;
-    }
-
     getCourseTitle(id: number): ElementFinder {
         return element(by.id(`course-title-${id}`));
     }

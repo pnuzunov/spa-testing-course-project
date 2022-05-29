@@ -1,4 +1,4 @@
-import { browser, by, element } from "protractor";
+import { browser } from "protractor";
 import { CourseFormPage } from "./course-form.po"
 import { CourseListPage } from "./course-list.po";
 
@@ -14,6 +14,8 @@ describe('Course Form', () => {
     it('should have proper title when page is in create mode', async () => {
         await page.navigateToCreate();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`));
+        expect(await browser.getCurrentUrl()).toBe(`${browser.baseUrl}new`);
+
         const pageTitle = page.getPageTitle();
         await pageTitle.isPresent();
         await browser.wait(browser.ExpectedConditions.visibilityOf(pageTitle), 10000);
@@ -21,7 +23,7 @@ describe('Course Form', () => {
         expect(await pageTitle.getText()).toEqual('Add new course'.toUpperCase());
     })
 
-    it('should add movie and redirect to courses page', async () => {
+    it('should add course and redirect to courses page', async () => {
         const listPage = new CourseListPage();
         await listPage.navigateTo();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
@@ -50,13 +52,15 @@ describe('Course Form', () => {
     it('should have proper title when page is in edit mode', async () => {
         await page.navigateToEdit(4);
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`));
+        expect(await browser.getCurrentUrl()).toBe(`${browser.baseUrl}edit/4`);
+
         const pageTitle = page.getPageTitle();
         await pageTitle.isPresent();
 
         expect(await pageTitle.getText()).toEqual('Edit course'.toUpperCase());
     })
 
-    it('should edit movie and redirect to courses page', async () => {
+    it('should edit course and redirect to courses page', async () => {
         await page.navigateToEdit(4);
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`), 10000);
 
@@ -91,7 +95,7 @@ describe('Course Form', () => {
         expect(await browser.getCurrentUrl()).toEqual(browser.baseUrl);
     })
 
-    it('should not create movie on empty form', async () => {
+    it('should not create course on empty form', async () => {
         await page.navigateToCreate();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`), 10000);
 
@@ -102,5 +106,21 @@ describe('Course Form', () => {
 
         await browser.sleep(500);
         expect(await browser.getCurrentUrl()).toEqual(`${browser.baseUrl}new`);
+    })
+
+    it('should not edit course on invalid form', async () => {
+        await page.navigateToEdit(4);
+        await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}edit/4`), 10000);
+
+        await page.clearForm();
+        await page.populateForm('12', '34');
+
+        const saveButton = page.getSaveButton();
+        await saveButton.isPresent();
+        await browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
+        await saveButton.click();
+
+        await browser.sleep(500);
+        expect(await browser.getCurrentUrl()).toEqual(`${browser.baseUrl}edit/4`);
     })
 })
