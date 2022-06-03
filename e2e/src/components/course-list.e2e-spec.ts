@@ -20,7 +20,7 @@ describe('Course List', () => {
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
         await browser.sleep(500);
         const items = page.getCourseElements();
-        await items.isPresent();
+        browser.sleep(500);
         expect(items['length']).not.toBe(0);
     })
 
@@ -28,7 +28,6 @@ describe('Course List', () => {
         await page.navigateTo();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
         const button = page.getAddButton();
-        await button.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(button), 10000);
         await button.click();
 
@@ -40,7 +39,6 @@ describe('Course List', () => {
         await page.navigateTo();
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}`), 10000);
         const editButton = page.getEditButton(4);
-        await editButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(editButton), 10000);
         await editButton.click();
 
@@ -58,7 +56,6 @@ describe('Course List', () => {
         expect(length).not.toBe(0);
 
         const delButton = page.getDeleteButton(4);
-        await delButton.isPresent();
         browser.wait(browser.ExpectedConditions.elementToBeClickable(delButton), 10000);
         await delButton.click();
 

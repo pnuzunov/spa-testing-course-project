@@ -17,7 +17,6 @@ describe('Course Form', () => {
         expect(await browser.getCurrentUrl()).toBe(`${browser.baseUrl}new`);
 
         const pageTitle = page.getPageTitle();
-        await pageTitle.isPresent();
         await browser.wait(browser.ExpectedConditions.visibilityOf(pageTitle), 10000);
 
         expect(await pageTitle.getText()).toEqual('Add new course'.toUpperCase());
@@ -37,7 +36,6 @@ describe('Course Form', () => {
 
         await page.populateForm('test title', 'test description');
         const saveButton = page.getSaveButton();
-        await saveButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
         await saveButton.click();
 
@@ -55,7 +53,7 @@ describe('Course Form', () => {
         expect(await browser.getCurrentUrl()).toBe(`${browser.baseUrl}edit/4`);
 
         const pageTitle = page.getPageTitle();
-        await pageTitle.isPresent();
+        await browser.wait(browser.ExpectedConditions.visibilityOf(pageTitle));
 
         expect(await pageTitle.getText()).toEqual('Edit course'.toUpperCase());
     })
@@ -67,7 +65,6 @@ describe('Course Form', () => {
         await page.clearForm();
         await page.populateForm('edited title', 'edited description');
         const saveButton = page.getSaveButton();
-        await saveButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
         await saveButton.click();
 
@@ -75,11 +72,10 @@ describe('Course Form', () => {
         expect(await browser.getCurrentUrl()).toEqual(browser.baseUrl);
 
         const listPage = new CourseListPage();
-        let item = listPage.getCourseTitle(4);
-        await item.isPresent();
-        await browser.wait(browser.ExpectedConditions.visibilityOf(item), 10000);
+        const courseTitle = listPage.getCourseTitle(4);
+        await browser.wait(browser.ExpectedConditions.visibilityOf(courseTitle), 10000);
 
-        expect(await item.getText()).toBe('edited title'.toUpperCase());
+        expect(await courseTitle.getText()).toBe('edited title'.toUpperCase());
     })
 
     it('should go back to courses list when cancel button is clicked', async () => {
@@ -87,7 +83,6 @@ describe('Course Form', () => {
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`));
 
         const cancelButton = page.getCancelButton();
-        await cancelButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(cancelButton), 10000);
         await cancelButton.click();
 
@@ -100,11 +95,12 @@ describe('Course Form', () => {
         await browser.wait(browser.ExpectedConditions.urlIs(`${browser.baseUrl}new`), 10000);
 
         const saveButton = page.getSaveButton();
-        await saveButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
         await saveButton.click();
 
-        await browser.sleep(500);
+        const errorMessage = page.getErrorMessage();
+        await browser.wait(browser.ExpectedConditions.presenceOf(errorMessage), 10000);
+        expect(await errorMessage.getText()).not.toBe('');
         expect(await browser.getCurrentUrl()).toEqual(`${browser.baseUrl}new`);
     })
 
@@ -116,11 +112,12 @@ describe('Course Form', () => {
         await page.populateForm('12', '34');
 
         const saveButton = page.getSaveButton();
-        await saveButton.isPresent();
         await browser.wait(browser.ExpectedConditions.elementToBeClickable(saveButton), 10000);
         await saveButton.click();
 
-        await browser.sleep(500);
+        const errorMessage = page.getErrorMessage();
+        await browser.wait(browser.ExpectedConditions.presenceOf(errorMessage), 10000);
+        expect(await errorMessage.getText()).not.toBe('');
         expect(await browser.getCurrentUrl()).toEqual(`${browser.baseUrl}edit/4`);
     })
 })

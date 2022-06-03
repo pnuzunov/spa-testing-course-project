@@ -1,7 +1,7 @@
 <div>
 
   <div class="m-3">
-    <h2 class="page-title">
+    <h2 class="page-title" data-test-selector="page-title">
       {{course?.id ? 'Edit course' : 'Add new course'}}
     </h2>
   </div>
@@ -23,8 +23,8 @@
                   formControlName="description"></textarea>
       </div>
   
-      <div *ngIf="errorMessage">
-        <p style="color: red;">{{errorMessage}}</p>
+      <div>
+        <p style="color: red;" data-test-selector="error-message">{{errorMessage}}</p>
       </div>
 
       <div class="m-1">

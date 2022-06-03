@@ -11,7 +11,7 @@ export class CourseFormPage {
     }
 
     getPageTitle(): ElementFinder {
-        return element(by.css('[class=page-title]'));
+        return element(by.css('[data-test-selector=page-title]'));
     }
 
     getSaveButton(): ElementFinder {
@@ -20,6 +20,10 @@ export class CourseFormPage {
 
     getCancelButton(): ElementFinder {
         return element(by.css('[data-test-selector=cancel-button]'));
+    }
+
+    getErrorMessage(): ElementFinder {
+        return element(by.css('[data-test-selector=error-message]'));
     }
 
     async clearForm(): Promise<void> {

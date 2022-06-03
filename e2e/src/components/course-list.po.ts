@@ -15,7 +15,7 @@ export class CourseListPage {
     }
 
     getCourseTitle(id: number): ElementFinder {
-        return element(by.id(`course-title-${id}`));
+        return element(by.className(`e2e-course-title-${id}`));
     }
 
     getAddButton(): ElementFinder {
@@ -23,11 +23,11 @@ export class CourseListPage {
     }
 
     getEditButton(id: number): ElementFinder {
-        return element(by.id(`btn-edit-${id}`));
+        return element(by.className(`e2e-btn-edit-${id}`));
     }
 
     getDeleteButton(id: number): ElementFinder {
-        return element(by.id(`btn-delete-${id}`));
+        return element(by.className(`e2e-btn-delete-${id}`));
     }
     
 }

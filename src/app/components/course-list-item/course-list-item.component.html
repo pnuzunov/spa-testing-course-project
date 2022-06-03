@@ -1,15 +1,13 @@
-<div class="card-title">
-    <p id="course-title-{{course?.id}}">{{course?.title}}</p>
+<div class="card-title e2e-course-title-{{course?.id}}">
+    <p>{{course?.title}}</p>
 </div>
 <div class="card-content">
     <span>{{course?.description}}</span>
 </div>
 <div>
-    <a  class="button-pretty button-neutral m-1" 
-        [routerLink]="['/edit', course?.id]"
-        id="btn-edit-{{course?.id}}">Edit</a>
+    <a  class="button-pretty button-neutral m-1 e2e-btn-edit-{{course?.id}}" 
+        [routerLink]="['/edit', course?.id]">Edit</a>
 
-    <button class="button-pretty button-dangerous m-1"
-            (click)="onDelete()"
-            id="btn-delete-{{course?.id}}">Delete</button>
+    <button class="button-pretty button-dangerous m-1 e2e-btn-delete-{{course?.id}}"
+            (click)="onDelete()">Delete</button>
 </div>
